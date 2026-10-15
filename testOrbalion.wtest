@@ -130,3 +130,45 @@ describe "checkpoint 3"{
 
     }
 }
+
+describe "checkpoint 4"{
+
+    test "Equipo etérico con 3 portales, fluctuación 80 y 2 tecnologías activas → es de prestigio universal." {
+        const estratega = new Entrenador(ciclosSolares = 12, precision = 90, estaSintonia = true, rol = "Estratega Cuantico")
+        const eterico = new EquipoEterico(nombre="aa", nivelEnergiaBase = 10, entrenador= estratega, fluctuacionDimensional = 80, portalesEnergeticos = 3)
+        const tec1 = new TecnologiaEspecial(nombre="aa", valorEnergetico=50, activa=true)
+        const tec2 = new TecnologiaEspecial(nombre="aa", valorEnergetico=50, activa=true)  
+    
+        eterico.agregarTecnologia(tec1)
+        eterico.agregarTecnologia(tec2)
+
+        assert.that(eterico.esDePrestigioUniversal())
+    
+    }
+
+    test "Verificar que el incremento del 15% se aplica correctamente." {
+        const estratega = new Entrenador(ciclosSolares = 12, precision = 90, estaSintonia = true, rol = "Estratega Cuantico")
+        const eterico = new EquipoEterico(nombre="aa", nivelEnergiaBase = 60, entrenador= estratega, fluctuacionDimensional = 80, portalesEnergeticos = 3)
+        const tec1 = new TecnologiaEspecial(nombre="aa", valorEnergetico=20, activa=true)
+        const tec2 = new TecnologiaEspecial(nombre="aa", valorEnergetico=20, activa=true)  
+    
+        eterico.agregarTecnologia(tec1)
+        eterico.agregarTecnologia(tec2)
+
+        assert.equals(115,eterico.energiaTotal())
+    
+    }
+    
+    test "Verificar que un equipo etérico que no cumple las condiciones no suma el 15%." {
+        const estratega = new Entrenador(ciclosSolares = 12, precision = 90, estaSintonia = true, rol = "Estratega Cuantico")
+        const eterico = new EquipoEterico(nombre="aa", nivelEnergiaBase = 60, entrenador= estratega, fluctuacionDimensional = 80, portalesEnergeticos = 3)
+        const tec1 = new TecnologiaEspecial(nombre="aa", valorEnergetico=40, activa=true)
+        const tec2 = new TecnologiaEspecial(nombre="aa", valorEnergetico=20, activa=false)  
+    
+        eterico.agregarTecnologia(tec1)
+        eterico.agregarTecnologia(tec2)
+
+        assert.equals(100,eterico.energiaTotal())
+    }
+
+}

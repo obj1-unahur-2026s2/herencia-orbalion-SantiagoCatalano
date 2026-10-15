@@ -13,7 +13,7 @@ class Equipo{
     tecnologiasComplementarias.add(a)
   }
 
-  method energiaTotal() = nivelEnergiaBase + tecnologiasComplementarias.sum({a => a.valorEnergetico()})
+  method energiaTotal() = nivelEnergiaBase + tecnologiasComplementarias.filter({a => a.activa()}).sum({a => a.valorEnergetico()})
   
   method esEliteGalactico() = entrenador.esElite()
 
@@ -48,12 +48,16 @@ class Sintetico inherits Equipo{
   method esDePrestigioUniversal() = if(certificado && modulosActivos > 3 && tecnologiasComplementarias.all({a => a.activa()})){true}else{false}
 }
 
-class Eterico inherits Equipo{
+class EquipoEterico inherits Equipo{
   var fluctuacionDimensional
   method fluctuacionDimensional() = fluctuacionDimensional
 
   var portalesEnergeticos
   method portalesEnergeticos() = portalesEnergeticos
+
+  method esDePrestigioUniversal() = if(fluctuacionDimensional > 75 && portalesEnergeticos >= 2 && tecnologiasComplementarias.count({a => a.activa()})>= 2){true}else{false}
+
+  override method energiaTotal() = if(self.esDePrestigioUniversal()){super() * 1.15}else{super()}
 }
 
 class Entrenador{
