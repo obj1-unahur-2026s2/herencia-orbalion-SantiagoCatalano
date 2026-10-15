@@ -14,7 +14,8 @@ class Equipo{
   }
 
   method energiaTotal() = nivelEnergiaBase + tecnologiasComplementarias.sum({a => a.valorEnergetico()})
-
+  
+  method esEliteGalactico() = Entrenador.esElite()
 }
 
 class Luminico inherits Equipo {
@@ -55,7 +56,7 @@ class Entrenador{
   method precision() = (precision.max(0)).min(100)
 
   const listaRoles = ["Estratega Cuantico", "Arquitecto de Energia", "Guia Mental"]
-  var rol = "Estratega Cuantico"
+  var rol
   method rol() = rol
   method cambiarRol(nuevoRol) {
     if(listaRoles.contains(nuevoRol)){
@@ -65,6 +66,16 @@ class Entrenador{
     }
   }
 
+  method esElite() {
+    if(self.rol() == "Estratega Cuantico" && self.precision() > 80 && self.ciclosSolares() > 10){
+      return true
+    }else if(self.ciclosSolares() > 10 && self.rol() == "Arquitecto de Energia" && self.estaSintonia() == true){
+      return true
+    }else if(self.ciclosSolares() > 10 && self.rol() =="Guia Mental"){
+      return true
+    }else{return false}
+      
+  }
   }
 
 

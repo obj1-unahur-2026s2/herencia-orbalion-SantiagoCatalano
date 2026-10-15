@@ -2,7 +2,7 @@ import orbalion.*
 describe "checkpoint 1" {
     test "Un entrenador no puede tener tener un rol distinto a los autorizados por la FOZ." {
     
-        const entrenador1 = new Entrenador(ciclosSolares = 1, estaSintonia = true, precision = 59)
+        const entrenador1 = new Entrenador(ciclosSolares = 1, estaSintonia = true, precision = 59, rol = "Estratega Cuantico")
         assert.throwsExceptionWithMessage("Rol no homologado por la FOZ", {entrenador1.cambiarRol("Cocinero")})
         assert.equals("Estratega Cuantico", entrenador1.rol())
 
@@ -40,5 +40,28 @@ describe "checkpoint 1" {
         assert.equals(110, sint1.energiaTotal())
 
     }
+
+}
+
+describe "checkpoint 2"{
+
+    test "Estratega cuántico con 12 ciclos y precisión 90 → es de élite galáctica." {
+        const estratega = new Entrenador(ciclosSolares = 12, precision = 90, estaSintonia = true, rol = "Estratega Cuantico")
+    
+        assert.that(estratega.esElite())
+    
+    }
+    test "Arquitecto de energía con 11 ciclos pero sin sintonía → no es de élite." {
+      const arquitecto = new Entrenador(ciclosSolares = 11, precision = 90, estaSintonia = false, rol = "Arquitecto de Energia")
+    
+        assert.notThat(arquitecto.esElite())
+    }
+    test "Guía mental con 15 ciclos → siempre es de élite." {
+      const guia = new Entrenador(ciclosSolares = 11, precision = 90, estaSintonia = false, rol = "Guia Mental")
+    
+        assert.that(guia.esElite())
+    }
+
+
 
 }
