@@ -1,0 +1,44 @@
+import orbalion.*
+describe "checkpoint 1" {
+    test "Un entrenador no puede tener tener un rol distinto a los autorizados por la FOZ." {
+    
+        const entrenador1 = new Entrenador(ciclosSolares = 1, estaSintonia = true, precision = 59)
+        assert.throwsExceptionWithMessage("Rol no homologado por la FOZ", {entrenador1.cambiarRol("Cocinero")})
+        assert.equals("Estratega Cuantico", entrenador1.rol())
+
+    }
+
+    test "Un equipo lumínico con radiación > 5000 y sin tecnologías activas → su energía total es su energía base." {
+
+        const lumi1 = new Luminico(nombre="aa", nivelEnergiaBase = 10, entrenador= 2, radiacion=5002)
+        assert.equals(11, lumi1.energiaTotal())
+
+    }
+
+    test "Un equipo lumínico con radiación < 5000 → obtiene el bono del 10%." {
+
+        const lumi1 = new Luminico(nombre="aa", nivelEnergiaBase = 10, entrenador= 2, radiacion=4002)
+        assert.equals(11, lumi1.energiaTotal())
+
+    }
+
+    test "Un equipo sintético con 6 módulos → aplica correctamente la penalización del 20%." {
+      
+        const sint1 = new Sintetico(nombre="aa", nivelEnergiaBase = 10, entrenador= 2, nivelProcesamiento=4002, modulosActivos = 6)
+        assert.equals(12, sint1.energiaTotal())
+
+    }
+
+    test "Un equipo sintético con 4 módulos y 2 tecnologías complementarias → suma correctamente los valores energéticos" {
+      
+        const sint1 = new Sintetico(nombre="aa", nivelEnergiaBase = 10, entrenador= 2, nivelProcesamiento=4002, modulosActivos = 4)
+        const tec1 = new TecnologiaEspecial(nombre="aa", valorEnergetico=50, activa=true)
+        const tec2 = new TecnologiaEspecial(nombre="aa", valorEnergetico=50, activa=true)    
+        
+        sint1.agregarTecnologia(tec1)
+        sint1.agregarTecnologia(tec2)
+        assert.equals(110, sint1.energiaTotal())
+
+    }
+
+}

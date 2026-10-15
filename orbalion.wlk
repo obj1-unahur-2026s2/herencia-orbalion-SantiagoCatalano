@@ -1,0 +1,107 @@
+class Equipo{
+  var nombre 
+  method nombre() = nombre
+  var nivelEnergiaBase 
+  method nivelEnergiaBase() = nivelEnergiaBase
+  var entrenador 
+  method entrenador() = entrenador 
+
+
+  const tecnologiasComplementarias = []
+
+  method agregarTecnologia(a) {
+    tecnologiasComplementarias.add(a)
+  }
+
+  method energiaTotal() = nivelEnergiaBase + tecnologiasComplementarias.sum({a => a.valorEnergetico()})
+
+}
+
+class Luminico inherits Equipo {
+  var radiacion
+  method radiacion() = radiacion
+
+  method nombresCristales() = tecnologiasComplementarias.map({a => a.nombre()})
+  override method energiaTotal() = if(radiacion > 5000){super()}else{super() * 1.1}
+}
+
+class Sintetico inherits Equipo{
+  var nivelProcesamiento
+  method nivelProcesamiento() = nivelProcesamiento
+
+  var modulosActivos 
+  method modulosActivos() = modulosActivos
+    
+  var property certificado = true 
+  override method energiaTotal() = if(modulosActivos > 5){super() * 1.2}else{super()}
+}
+
+class Eterico inherits Equipo{
+  var fluctuacionDimensional
+  method fluctuacionDimensional() = fluctuacionDimensional
+
+  var portalesEnergeticos
+  method portalesEnergeticos() = portalesEnergeticos
+}
+
+class Entrenador{
+  var ciclosSolares
+  method ciclosSolares() = ciclosSolares
+
+  var estaSintonia
+  method estaSintonia() = estaSintonia
+
+  var precision
+  method precision() = (precision.max(0)).min(100)
+
+  const listaRoles = ["Estratega Cuantico", "Arquitecto de Energia", "Guia Mental"]
+  var rol = "Estratega Cuantico"
+  method rol() = rol
+  method cambiarRol(nuevoRol) {
+    if(listaRoles.contains(nuevoRol)){
+      rol = nuevoRol
+    }else{
+      self.error("Rol no homologado por la FOZ")
+    }
+  }
+
+  }
+
+
+class TecnologiaEspecial {
+  const nombre
+  const valorEnergetico
+  const activa
+  method nombre() = nombre
+  method valorEnergetico() = valorEnergetico
+  method activa() = activa
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
