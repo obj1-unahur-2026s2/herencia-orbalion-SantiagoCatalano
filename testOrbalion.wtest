@@ -65,3 +65,68 @@ describe "checkpoint 2"{
 
 
 }
+
+describe "checkpoint 3"{
+    
+    test "Equipo lumínico con 3 cristales, entrenador de élite y una tecnología activa → es de prestigio universal." {
+        
+        const estratega = new Entrenador(ciclosSolares = 12, precision = 90, estaSintonia = true, rol = "Estratega Cuantico")
+        const lumi1 = new Luminico(nombre="aa", nivelEnergiaBase = 10, entrenador= estratega, radiacion=5002)
+        const tec1 = new TecnologiaEspecial(nombre="aa", valorEnergetico=50, activa=true)
+        const tec2 = new TecnologiaEspecial(nombre="aa", valorEnergetico=50, activa=true)  
+        const tec3 = new TecnologiaEspecial(nombre="aa", valorEnergetico=50, activa=true)
+
+        lumi1.agregarTecnologia(tec1)
+        lumi1.agregarTecnologia(tec2)
+        lumi1.agregarTecnologia(tec3)
+
+        assert.that(lumi1.esDePrestigioUniversal())    
+    }
+    test "Equipo sintético certificado con 4 módulos y todas las tecnologías activas → es de prestigio." {
+        const estratega = new Entrenador(ciclosSolares = 12, precision = 90, estaSintonia = true, rol = "Estratega Cuantico")
+        const sint1 = new Sintetico(nombre="aa", nivelEnergiaBase = 10, entrenador= estratega, nivelProcesamiento=4002, modulosActivos = 4)
+        const tec1 = new TecnologiaEspecial(nombre="aa", valorEnergetico=50, activa=true)
+        const tec2 = new TecnologiaEspecial(nombre="aa", valorEnergetico=50, activa=true)  
+        const tec3 = new TecnologiaEspecial(nombre="aa", valorEnergetico=50, activa=true)
+        const tec4 = new TecnologiaEspecial(nombre="aa", valorEnergetico=50, activa=true)      
+
+        sint1.agregarTecnologia(tec1)
+        sint1.agregarTecnologia(tec2)
+        sint1.agregarTecnologia(tec3)
+        sint1.agregarTecnologia(tec4)
+
+        assert.that(sint1.esDePrestigioUniversal())    
+
+    }
+    
+    test "Equipo lumínico con 3 cristales, entrenador de élite y cero tecnologías activas → no es de prestigio universal." {
+        
+        const estratega = new Entrenador(ciclosSolares = 12, precision = 90, estaSintonia = true, rol = "Estratega Cuantico")
+        const lumi1 = new Luminico(nombre="aa", nivelEnergiaBase = 10, entrenador= estratega, radiacion=5002)
+        const tec1 = new TecnologiaEspecial(nombre="aa", valorEnergetico=50, activa=false)
+        const tec2 = new TecnologiaEspecial(nombre="aa", valorEnergetico=50, activa=false)  
+        const tec3 = new TecnologiaEspecial(nombre="aa", valorEnergetico=50, activa=false)
+
+        lumi1.agregarTecnologia(tec1)
+        lumi1.agregarTecnologia(tec2)
+        lumi1.agregarTecnologia(tec3)
+
+        assert.notThat(lumi1.esDePrestigioUniversal())    
+    }
+    test "Equipo sintético certificado con 4 módulos y una tecnologia desactivada → no es de prestigio." {
+        const estratega = new Entrenador(ciclosSolares = 12, precision = 90, estaSintonia = true, rol = "Estratega Cuantico")
+        const sint1 = new Sintetico(nombre="aa", nivelEnergiaBase = 10, entrenador= estratega, nivelProcesamiento=4002, modulosActivos = 4)
+        const tec1 = new TecnologiaEspecial(nombre="aa", valorEnergetico=50, activa=false)
+        const tec2 = new TecnologiaEspecial(nombre="aa", valorEnergetico=50, activa=true)  
+        const tec3 = new TecnologiaEspecial(nombre="aa", valorEnergetico=50, activa=true)
+        const tec4 = new TecnologiaEspecial(nombre="aa", valorEnergetico=50, activa=true)      
+
+        sint1.agregarTecnologia(tec1)
+        sint1.agregarTecnologia(tec2)
+        sint1.agregarTecnologia(tec3)
+        sint1.agregarTecnologia(tec4)
+
+        assert.notThat(sint1.esDePrestigioUniversal())    
+
+    }
+}

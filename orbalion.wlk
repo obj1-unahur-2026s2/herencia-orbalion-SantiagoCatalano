@@ -15,7 +15,10 @@ class Equipo{
 
   method energiaTotal() = nivelEnergiaBase + tecnologiasComplementarias.sum({a => a.valorEnergetico()})
   
-  method esEliteGalactico() = Entrenador.esElite()
+  method esEliteGalactico() = entrenador.esElite()
+
+
+
 }
 
 class Luminico inherits Equipo {
@@ -23,7 +26,11 @@ class Luminico inherits Equipo {
   method radiacion() = radiacion
 
   method nombresCristales() = tecnologiasComplementarias.map({a => a.nombre()})
+  method cantCristales() = tecnologiasComplementarias.size()
   override method energiaTotal() = if(radiacion > 5000){super()}else{super() * 1.1}
+
+  method esDePrestigioUniversal() = if(self.cantCristales() >= 3 && self.esEliteGalactico() && tecnologiasComplementarias.any({a => a.activa()})){true}else{false}
+
 }
 
 class Sintetico inherits Equipo{
@@ -33,8 +40,12 @@ class Sintetico inherits Equipo{
   var modulosActivos 
   method modulosActivos() = modulosActivos
     
-  var property certificado = true 
+  var certificado = true 
+  method certificado() = certificado
+
   override method energiaTotal() = if(modulosActivos > 5){super() * 1.2}else{super()}
+
+  method esDePrestigioUniversal() = if(certificado && modulosActivos > 3 && tecnologiasComplementarias.all({a => a.activa()})){true}else{false}
 }
 
 class Eterico inherits Equipo{
